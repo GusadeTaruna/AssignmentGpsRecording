@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">GoogleMaps</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="txtLatitude">Latitude</string>
+    <string name="txtLongitude">Longitude</string>
+    <string name="btnRecord">Start recording</string>
+    <string name="btnData">Data</string>
+    <string name="txtAccX">Acc X</string>
+    <string name="txtAccY">Acc Y</string>
+    <string name="txtAccZ">Acc Z</string>
+</resources>
