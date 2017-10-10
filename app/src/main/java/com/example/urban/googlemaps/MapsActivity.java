@@ -56,7 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker mMarker;
     private Button mBtnRecord;
     private Button mBtnData;
-    public boolean mFile = false;
+    private boolean mFile = false;
+    private String mNameFile = "";
     private File file;
 
 //    private AddressResultReceiver mResultReceiver;
@@ -155,12 +156,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 File folder = new File(Environment.getExternalStorageDirectory()
                         + "/gpsApp");
 
-                boolean var = false;
-                if (!folder.exists())
-                    var = folder.mkdir();
-
-//                Toast.makeText(getApplicationContext(), String.valueOf(folder), Toast.LENGTH_SHORT).show();
-
+                if (!folder.exists() || !folder.isDirectory()) {
+                    folder.mkdir();
+//                    Toast.makeText(getApplicationContext(), String.valueOf(folder), Toast.LENGTH_SHORT).show();
+                }
                 long timeStamp = System.currentTimeMillis();
                 final String filename = folder.toString() + "/" + String.valueOf(timeStamp) + ".csv";
 
@@ -173,6 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (file.exists()) {
                     mFile = true;
+//                    Toast.makeText(getApplicationContext(), "created new file", Toast.LENGTH_SHORT).show();
                 }
             }
             try {
@@ -274,11 +274,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /** Called when the user taps the Send button */
     public void ShowData(View view) {
-        Intent intent = new Intent(this, PreviousRoutesActivity.class);
-//        EditText editText = (EditText) findViewById(R.id.editText);
-//        String message = editText.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        File sdcard = Environment.getExternalStorageDirectory();
+        File dirFileObj = new File(sdcard,"/gpsApp/");
+        String[] files = dirFileObj.list();
+
+        if(files.length != 0) {
+            Intent intent = new Intent(this, PreviousRoutesActivity.class);
+            startActivity(intent);
+        }
     }
 
     public void StartRecording(View view){
@@ -292,6 +295,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Constants.RECORDING = 1;
             mBtnData.setClickable(true);
             mBtnRecord.setText("Start Recording");
+            mFile = false;
             view.setTag(1);
         }
     }

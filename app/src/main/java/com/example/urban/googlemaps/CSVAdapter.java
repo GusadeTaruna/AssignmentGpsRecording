@@ -106,8 +106,6 @@ public class CSVAdapter extends ArrayAdapter<GpsData>{
                 }
                 String fileName = sdcard + "/gpsApp/" + files[maxIndex];
                 file = new File(fileName);
-            }else {
-                file = new File(sdcard + "/gpsApp/gpsData.csv");
             }
             // Get input stream and Buffered Reader for our data file.
             BufferedReader reader = new BufferedReader(new FileReader(file));
